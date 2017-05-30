@@ -1,0 +1,135 @@
+Need of Concurrent Collections
+------------------------------
+
+Tradition Collection object(like ArrayList,HashMap..) can be accessed by Multiple Threads simultaneously and there may be a chance of data inconsistency problems and hence there are not thread safe.
+
+Already existing thread safe collections(Vector, Hashtable, synchronizedList(), synchronizedSet(), synchronizedMap())performance wise not upto the mark.
+Because for every operation even for read operation also total collection will be loaded by only one thread at a time and it increases waiting time of threads.
+
+Another big problem with traditional collections is while one thread iterating collection, the other threads are not allowed to modify collection object simultaneously if we are trying to modify then we will get ConcurrentModificationException.
+
+Hence these traditional collection objects are not suitable for scalable multi threaded applications.
+To overcome these problems SUN people introduced concurrent collections in 1.5 version.
+
+Difference between traditional and Concurrent Collections
+---------------------------------------------------------
+1)Concurrent Collections are always Threadsafe.
+2)When compared with traditional thread safe collections performance is more because of different locking mechanism.
+3)while one thread interacting collection the other threads are allowed to modify collection in safe manner.
+
+Hence Concurrent collections never throw ConcurrentModificationException.
+The important Concurrent classes are
+1.ConcurrentHashMap
+2.CopyOnWriteArrayList
+3.CopyOnWriteArraySet
+
+All Concurrent collections are thread safe.
+It never throws ConcurrentModificationException. 
+Performance wise its best because of different locking mechanisms.
+Concurrent Collections are best suitable for scalable Multithreaded application.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

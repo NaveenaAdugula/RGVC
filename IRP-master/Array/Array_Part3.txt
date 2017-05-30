@@ -1,0 +1,26 @@
+Array declaration,creation and initialization in a
+-------------------------------------------------- single line:
+------------
+
+int[] x,
+x=new int[3];
+x[0]=10;
+x[1]=20;
+x[2]=30;
+
+int[] x={10,20,30};
+performance point of view there is no advantage, but in single line doing all these things.
+
+
+we can use these shortcuts for multidimensional arrays also.
+int[][]x={{10,20},{30,40,50}};
+
+
+int[][]a=new int[4][3];-----5 objects 
+a[0]=new int[4]--------1 more object created
+a[1]=new int[2]------1
+a=new int[3][2]--------4
+Total how many objects got created?
+11
+2)how many objects eligible for garbage collection
+7

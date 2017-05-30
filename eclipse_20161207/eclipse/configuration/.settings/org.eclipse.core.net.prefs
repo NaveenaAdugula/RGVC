@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+org.eclipse.core.net.hasMigrated=true
+proxyData/HTTP/hasAuth=true
+proxyData/HTTP/host=inpunwbs02-wcg.corp.capgemini.com
+proxyData/HTTP/port=8080
+proxyData/HTTPS/hasAuth=true
+proxyData/HTTPS/host=inpunwbs02-wcg.corp.capgemini.com
+proxyData/HTTPS/port=8080
+systemProxiesEnabled=false

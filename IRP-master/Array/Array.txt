@@ -1,0 +1,136 @@
+Array
+-----
+Collection of similar/homogeneous data type.
+occupies continous memory location
+An array is an object in Java
+
+
+Array declaration
+-----------------
+int[] x;------Recommended : because name is clearly separated from type
+int  []x;
+int x[];
+
+int[6] x;-----invalid
+At the time of declaraton, we can't specify the size,Otherwise we will get compile time error.
+
+
+Two dimensional array declaration:
+----------------------------------
+int[][] x;
+int  [][]x;
+int x[][];
+int[] []x;
+int[] x[];
+int[]x[];
+
+all above statements are valid
+
+
+Find out dimensions:
+int[]  a,b;  a-1 b-1
+int[] a[],b;  a-2 b-1
+int[] a[],b[]; a-2 b-2
+int[]  []a,b; a-2 b-2
+int[] []a,b[]; a-2 b-3
+int[] []a,[]b; compilation error because dimension before the variable is allowd for first var only.
+
+int[] []a,[]b,[]c
+a - valid
+b - invalid
+c - invalid
+
+Three dimensional array declaration:
+-----------------------------------
+int[][][] a;
+int  [][][]a;
+int a[][][];
+int[] [][]a;
+int[] a[][];
+int[] []a[];
+int[][] []a;
+int[][] a[];
+int  [][]a[];
+int[][]  a[];
+int  [][]a[];
+int []a[][];
+
+All above are valid
+
+Array creation
+--------------
+As every array is an object in java, we can use new operator with array.
+int[] a=new int[3];
+
+
+what is proof An array is an object of which class?
+int[] a=new int[3];
+System.out.println(a.getClass());//class [I
+System.out.println(a.getClass().getName());//[I
+
+For every Array type corresponding class is there.
+int[] a=new int[3];
+System.out.println(a.getClass().getName());//[[I
+
+For every array type corresponding classes are available, and these classes are part of java language and not available to the programmer level.
+
+
+
+Array type   Corresponding class name
+int[]        [I
+int[][]      [[I
+double[]     [D
+String[]     [S
+byte[]       [B
+Boolean[]    [Z
+
+
+int[] x=new int[];-----invalid
+int[] x=new int[6];----valid
+
+At the time of array creation,compulsory we should specify the size, otherwise we wil get compile time error.
+
+int[] x=new int[0]; - it is legal with size 0.
+Best example with main method String[] args,if don't pass command line args, size is zero.
+
+
+int[] x=new int[-3];
+-no compilation error, because compiler's job is checking, is it int value or not.
+
+-NegativeArraySizeException
+
+int[] x=new int[10]-----valid
+int[] x=new int['a']------valid 
+char,short and byte are implicitly converted  to int.
+var with long data type is not allowed.
+
+byte b=20;
+int[]x=new int[b];-----valid
+short l=30;
+int[]x=new int[l];-----valid
+int[]x=new int[10L];-----invalid
+
+To specify array size,allowed data types are byte,short,char,int. It we are trying to specify any other type then we will get compile time error.
+
+
+What is max size allowed for array?
+int[] x=new int[2147483647];----valid
+int[] x=new int[2147483648];----invalid--out of range compilation error because exceed int size.
+
+
+int[] x=new int[2147483647];----valid but @ runtime you may get following error
+because requires 2147483647*4 byte memory in Heap.
+Exception in thread "main" java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+	at Demo.main(Demo.java:9)
+
+
+
+
+
+
+
+
+
+
+
+

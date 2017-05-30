@@ -1,0 +1,240 @@
+Versions
+--------
+JDK 1.0 (January 21, 1996)
+JDK 1.1 (February 19, 1997)
+J2SE 1.2 (December 8, 1998)
+J2SE 1.3 (May 8, 2000)
+J2SE 1.4 (February 6, 2002)
+J2SE 5.0 (September 30, 2004)
+Java SE 6 (December 11, 2006)
+Java SE 7 (July 28, 2011)
+Java SE 8 (March 18, 2014)
+
+JDK JRE
+-------
+JDK=JRE+Development tools
+JRE=JVM+library classes
+
+
+
+
+
+
+public static void main(String[] args)
+---------------------------------------
+Whether class contains main() method or not and whether main() method is declared according to requirement or not these things won't be checked by compiler. At runtime, JVM is responsible to check these things.
+At runtime if JVM is unable to find required main() method then we will get runtime exception saying NoSuchMethodError.main
+
+class Test
+{}
+
+javac Test.java
+java Test  => What will be the output?
+
+
+
+
+public - To call by JVM from anywhere
+static - without existing object also JVM has to call this method and main method no way related to any object.
+void - main() method wont return anything to JVM
+main - this is name which is configured inside JVM
+String[] args - command line args
+
+The above syntax is very strict if we perform any change we will get runtime exception saying NoSuchMethodError:main.
+
+Even though the above syntax is very strict the following changes are acceptable
+1)static public
+2)String[] args
+  String []args
+  String args[]
+3)instead of args you can take any valid arg
+4)main(String...args)
+
+Ex.Father asked me to pickup guest from so and so point.
+   got the identity as an red shirt,black pant
+
+   what if additionally yellow cap on head
+
+5)we can declare main() method with the following modifiers also
+  final
+  synchronized
+ strictfp
+
+final static synchronized strictfp public void main(String[] args)
+
+above line is absolutely valid main
+
+Find out valid declaration
+1)public static void Main(String[] args)
+2)public static int main(String[] args)
+3)public static void main(String args)
+4)public final synchronized strictfp void main(String[] args)
+5)public static final synchronized strictfp void main(String[] args)
+6)public static void main(String... args)
+7)static public void main(String... args)
+
+
+
+In which cases we will get compilation error?
+In which cases we will get runtime error?
+
+
+Overloading of main method is possible.
+
+
+class P
+{
+   public static void main(String[] args)
+   {
+      System.out.println("Parent main")
+   }
+}
+class C extends P
+{
+}
+saved P.java
+
+javac P.java
+java P.java
+o/p - Parent main
+
+Java C
+o/p -Parent main
+Inheritance concept applicable for the main method. Hence while executing child class if child class doesn't contain main method then parent class main method will be executed.
+
+
+class P
+{
+   public static void main(String[] args)
+   {
+      System.out.println("Parent main");
+   }
+}
+class C extends P
+{
+  public static void main(String[] args)//Method hiding not method overriding because of static
+   {
+      System.out.println("Child main");
+   }
+}
+
+java P.java
+o/p - Parent main
+
+Java C
+o/p -Child main
+
+
+For main method inheritance and overloading concepts are applicable but overriding concept is not applicable instead of overriding method hiding concept is applicable.
+
+case 1:
+
+Until 1.6 version if the class doesn't contain main() method we will get runtime exception saying no such method error.
+But from 1.7 version onwards instead of NoSuchMethodError we will get more meaningful error information.
+Error: Main method not found in class Test, please define the main method as:
+   public static void main(String[] args)
+
+class Test{}
+javac Test----------1.6
+RE:NoSuchMethodError:main
+javac Test---------1.7
+Error:Main method not found in class Test, please define main method as public static void main(String[] args)
+
+
+case 2:
+from 1.7 version onwards to run a java program main method is mandatory. Hence, even though class contains static blocks they wont be executed if the class doesn't contain main() method.
+
+class Test
+{
+  static
+  {
+     S.o.p("static block");
+  }
+}
+ 
+1.6 o/p
+static block
+RE:NoSuchMethodError:main
+
+1.7
+o/p Error:main method not found in class
+
+
+class Test
+{
+  static
+  {
+     S.o.p("static block");
+     System.exit(0);
+  }
+}
+ 
+1.6 o/p
+static block
+
+1.7
+o/p Error:main method not found in class
+
+
+next case:
+If the class contains main() method whether it is 1.6 or 1.7 version there is no change in execution sequence.
+
+class Test
+{
+   static
+   {   
+      S.o.p("Test");
+   }
+   public static void main(String[] args)
+   {
+      System.out.println("main method");
+   }
+}
+
+same output in 1.6 and 1.7
+
+
+Q. Without writing main() method is it possible to print some statements to the console?
+A.Yes we can print by using static block.
+But this rule is applicable until 1.6 version only, from 1.7 version onwards main() method is manadatory to print some statements to the console.
+
+
+class Test{
+static String s="java";
+}
+
+Test.s.length();
+
+-Test is a class name
+-s is a static variable present in Test class of type String
+-length() is method present in String class.
+
+class System
+{
+  static PrintStream out;
+}
+
+System.out.println("Hello");
+
+
+System is class present in java.lang package
+out is a static variable present in System class of type PrintStream
+println() is a method present in PrintStream class
+
+
+Server
+------
+Web server - to execute web application
+application server - to execute enterprise application
+
+application server is superior server
+
+JEE is compatible with application server
+
+web server - Servlet+JSPs+HTML
+application server - Servlets+JSP+Html..........EJB+JMS
+application server examples - JBoss,Glassfish,WebLogic
+application server provides the services for security,transaction,mail,JMS
+
+application server contains inbuilt web server
+

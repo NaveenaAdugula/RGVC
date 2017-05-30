@@ -1,0 +1,89 @@
+jre1.8.0_111
+jdk1.8.0_121
+
+C:\Program Files\Java\jdk1.8.0_121\bin
+
+shared folder-\\10.110.78.140
+DevOPs_29_May_2017
+
+softwares
+https://github.com/sanjaydegaonkar/irp
+
+
+TDD-Test Driven development
+basic challanges
+1)design
+2)identifying test cases
+icicbank-pinacle software-infosys
+
+-fast development
+-bug free
+-easy to test and maintain--uses layered architecture
+
+
+Database->DAO->Service->Presentation Layer
+
+com.capgemini.bank.beans
+AccountBean- int accountNumber,amount;
+
+com.capgemini.bank.repositary
+-AccountRepositary(Interface)
+boolean Save(Account account)
+Account SearchAccount(int accountNumber)
+
+-AccountRepositaryImpl()
+we use interface and implements--loose coupling-not binded to single 
+
+com.capgemini.bank.service
+-AccountService(Interface)
+createAccount(int AccountNumber,int amount) throws InsufficientIntialAmountException();
+depositAmount(int amount) throws InvalidAccountNumberException();
+withDrawAmount(int amount) throws InsufficientIntialAmountException(),InsufficientBalanceException();
+
+-AccountServiceImpl()
+AccountRepositary accountRepositary
+AccountServiceImpl(AccountRepositary accountRepositary){
+this.accountRepositary=accountRepositary();
+}
+com.capgemini.bank.exception
+InsufficientIntialAmountException()
+InvalidAccountNumberException()
+InsufficientBalanceException()
+
+com.capgemini.bank.test
+AccountServiceImplTest
+1)repositaryimpl is not done so we create an dummy project 
+@Mock
+AccountRepositary accountRepository;
+AccountService accountService;
+
+setup
+MockitoAnnotations.initMocks(this);
+accountervice=new AccountServiceImpl(accountRepositary);
+
+3.When clause we need to use
+Override rules
+1)Primitive
+2)Covariant
+3)Modifier-same or higher modifier is required
+4)Checked Exception-same,subclass,zero(don't specify any exception) exception are allowed
+
+restricted modifier
+private-default-protected-public
+java jar file is rt.jar
+test jar is org.junit,mocktio.jar
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+identifying the test cases
+test cases for createAccount
+1.whenTheAmountIsLessThan500 system should throw exception
+2.whenTheValidInformation(101,5000) is passed,account should be created successfully.
+testcases for depositAmount
+validDepositAmount
+validAccountNumber
+testcases for withDraw
+validAmount
+validAccountNumber
+Successfultransaction
+
+
+mocktio jar file download-https://dl.bintray.com/mockito/maven/org/mockito/mockito-all/2.0.0-beta/

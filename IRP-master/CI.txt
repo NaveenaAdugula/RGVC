@@ -1,0 +1,62 @@
+What is CI
+
+- a development methodology
+- of daily developer integrations
+- verified by automated builds
+
+Continuous compilation != Continuous Integration
+
+why do it?
+Building software can be a risky business
+
+Fixing bugs late is costly
+
+Lack of team cohesion
+when did we decided to upgrade the version of our project?
+I thought you fixed that 2 months ago.
+
+
+Better
+Build better quality software
+That is tested early and often
+That adheres to best practices and coding standards
+
+
+Faster
+Test in parallel, not at the end
+No integration points
+Builds become a non event
+
+Cheaper
+Identify defects earlier
+Fix when least costly
+Easily repeatable testing
+
+Build Ingredients
+------------------
+compilation
+Test execution
+Database integration
+code inspection(idenfited problems early, best practices)
+Documentation generation
+
+compilation - on every target platform
+
+When do I build?
+At every checkin
+every time dependency changes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+concurrentHashMap 
+-----------------
+-Underlying data structure is Hashtable
+-ConcurrentHashMap allows Concurrent Read and Thread Safe Update operations.
+-To perform read operation thread won't require any lock, but to perform update operation thread requires lock but it is the lock of only a particular part of Map(Bucket Level Lock).
+-Instead of whole Map Concurrent update achieved by internally dividing Map into smaller portion which is defined by concurrency level.
+-The default concurrency level is 16 i.e. ConcurrentHashMap allows simulteneous read operation and simultaneously 16 write(update) operations.
+-null is not allowed for both keys and values.
+-while one thread iteration the other thread can perform update operation and ConcurrentHashMap never throw ConcurrentModificationException.
+
+
+Constructors
+------------
+
+ConcurrentHashMap()
+Creates a new, empty map with 
+a default initial capacity (16),
+load factor (0.75) and
+concurrencyLevel (16).
+
+ConcurrentHashMap(int initialCapacity)
+Creates a new, empty map with the specified initial capacity, and with default load factor (0.75) and concurrencyLevel (16).
+
+ConcurrentHashMap(int initialCapacity, float loadFactor)
+Creates a new, empty map with the specified initial capacity and load factor and with the default concurrencyLevel (16).
+
+ConcurrentHashMap(int initialCapacity, float loadFactor, int concurrencyLevel)
+Creates a new, empty map with the specified initial capacity, load factor and concurrency level.
+
+ConcurrentHashMap(Map<? extends K,? extends V> m)
+Creates a new map with the same mappings as the given map.
+
+Example
+-------
+ConcurrentHashMap m = new ConcurrentHashMap();
+m.put(101,"A");
+m.put(102,"B");
+m.putIfAbsent(103,"c");
+m.putIfAbsent(101,"D");
+m.remove(101,"D");
+m.replace(102,"B","E");
+S.o.p(m);
+
+o/p{101=A, 102=E, 103=c}  order cannot be guaranteed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

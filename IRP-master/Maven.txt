@@ -1,0 +1,439 @@
+What is Maven
+-------------
+
+At its simplest, Maven is a build tool
+ - It always produces one artifact(component)
+ - It helps us manage dependencies
+
+It can also be used as a project management tool
+ - It handles versioning and releases
+ - Describes what your project is doing or what it produces
+ - Can easily produce javadocs as well as other site information
+
+Who owns it
+-----------
+-Maven is managed by the Apache Software Foundation
+-Maven sites are built with Maven
+-open source
+
+Why do you want to use it
+-------------------------
+-Repeatable builds
+ we can recreate our build for any enviornment(DevOps,WebOps...)
+-Transitive dependencies
+ downloading a dependency will also pull other items it needs
+-contains everything it needs for your environment
+-works with a localrepo
+-works with your IDE, but also standalone
+-The preferrred choice for working with build tools like Jenkins or Cruise Control
+
+
+Ant
+---
+-Ant was developed to be a replacement for a build tool called "Make"
+-Designed to be cross platform
+-Built on top of Java and XML
+-Very procedural
+
+Ant vs Maven
+------------
+-Ant really isn't build tool as much as it is a scripting tool
+-You have to explicitly do everything in Ant
+
+  <target name="clean" description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}" />
+  </target>
+-We have to define everything that we want to do
+ clean,clear,cleanup etc..
+-A lot of tribal knowledge nothing carries over
+
+Maven :
+-------
+-Maven is a full fledged build tool
+-A lot of implicit functionality
+-Consistency across projects
+-Also capable to achieve inheritance in projects
+-Transitive dependencies (can be achieved using Ivy with Ant though)
+-Build around versioning
+
+Ant vs Maven summary
+--------------------
+-Ant is very declarative
+-Maven follows a convention over configuration model
+-Ant is may be easier to learn but it really is only beneficial as a scripting tool
+-Maven is really centered around managing your entire project's lifecycle
+
+
+file name must be pom.xml
+POM - Project Object Model
+--------------------------
+
+<project>
+    <groupId>com.pluralsight</groupId> ------------company name web address
+    <artifactId>HelloWorld</aritifactId>
+    <version>1.0-SNAPSHOT </version>------------------SNAPSHOT must be in capital letter
+    <moduleVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+</project>
+
+
+Maven is expecting standard folder structure 
+HelloWorld
+ -src
+    main
+      java
+        HelloWorld.java
+ -target
+ -pom.xml
+
+
+target
+------
+-where everything gets compiled to
+-Also where tests get ran from
+-Contents in this directory get packaged into a jar,war,ear etc.
+
+pom.xml
+-------
+can be divided into 4 basic parts :
+-Project Information
+ groupId----------package name
+ artifactId-------application name
+ version
+ packaging-------jar war ear..
+-Dependencies
+ Direct dependencies used in our application
+-Build
+ Plugins
+ Directory Structure
+-Repositories
+ Referring to central or any shared repository
+
+Dependencies
+------------
+-What we want to use in our application
+-Dependencies are imported by their naming convention
+ Often considered the most confusing part of Maven
+-We have to know the groupId,artifactId and the version of what we are looking for
+-Added to a dependencies section to our pom file
+
+-Just list the dependency that we want
+ Transitive dependencies will be pulled in by Maven
+-Need at a minimum 3 things
+ groupId
+ artifactId
+ version
+      
+    <dependencies>
+       <dependency>
+         <groupId>commons-lang</groupId>
+         <artifactId>commons-lang</artifactId>
+         <version>2.1</version>
+       <dependency>
+    </dependencies>
+
+Goals
+-----
+-clean
+ Deletes the target directory and any generated resources
+
+-compile
+ compiles all source code, generates any files, copies resources to our classes directory
+
+-package
+ Runs the compile command first, runs any tests, packages the app based off its packaging type
+
+-install
+ Runs the package command and then installs it in your local repo
+
+-deploy
+ Runs the install command and then deploys it to a corporate repository
+ often confused with web server deployment
+
+
+Local Repository
+----------------
+-Where Maven stores everything it downloads
+ Installs in your home directory\.m2
+-Stores artifacts using the information that you provided for artifactId, groupId and version
+  e.g.
+  C:\Users\sdegaonk\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar
+-Avoids duplication by copying it in every project and storing it in your SCM
+
+Defaults
+--------
+These are all the defaults that Maven has, but how do we override them?
+-The build section!
+
+e.g. in pom.xml
+     <build>
+       <finalName>foo</finalName>
+     </build>
+
+
+
+
+Versions:
+--------
+Version numbers are up to your corporate strategy
+SNAPSHOT : download latest version
+-Development starts off as a SNAPSHOT
+ myapp-1.0-SNAPSHOT.jar
+ Changes always downloaded
+ Saves you from rereleasing versions for development
+ Never deploy to production with a SNAPSHOT
+-A release doesn't have a specific naming convention
+ myapp-1.0.jar
+ myapp-1.0.1.jar
+-Industry common terms, but don't affect maven
+ myapp-1.0-M1.jar(milestone release)
+ myapp-1.0-RC1.jar(release candidate)
+ myapp-1.0-RELEASE.jar(release)
+ myapp-1.0-Final.jar(release)
+
+Types
+-----
+Current core packaging types are:
+-pom,jar,maven-plugin,ejb,war,ear,rar,par
+-The default packaging type is jar
+The type of pom is referred to as a dependency pom
+-Downloads dependencies from that pom
+
+
+<project>
+    <groupId>com.pluralsight</groupId> ------------company name web address
+    <artifactId>HelloWorld</aritifactId>
+    <version>1.0-SNAPSHOT </version>------------------SNAPSHOT must be in capital letter
+    <moduleVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>--------------------jar,war,rar,par..
+</project>
+
+
+Transitive Dependencies
+-----------------------
+-The main reason people begin using maven
+ e.g.
+  If we add a dependency:
+  <dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>4.1.6.Final</version>
+    <scope>compile</scope>
+  </dependency>
+If we add a dependency it downloads it's transitive dependencies :
+   antrl
+   dom4j
+   hibernate-commons-annotations
+   hibernate-core
+   hibernate-jpa
+   javassist
+   jboss-logging
+   jboss-transaction-api_1.1_spec
+
+junit has hamcrest.jar dependency
+
+Scope
+-----
+There are 6 scopes available for dependencies:
+-compile - default scope, artifacts available everywhere
+-provided - like compile, means that the artifact is going to be provided where it is deployed
+ servlet-api.jar
+ xml-apis
+ Available in all phases, but not included in final artifact
+-runtime - not needed for compilation, but needed for execution
+ e.g. jdbc jar
+-test - only available for the test compilation and execution phase
+-system - similar to provided, you specify a path to the jar on your file system
+ Very brittle and defeats the purpose of maven, don't use!
+-import - advanced topic, deals with dependencyManagement sections
+
+
+
+Repositories:
+-------------
+-simply just a http accessible location that you download files from 
+-Default location
+ http://repo.maven.apache.org/maven2
+-Multiple repositories allowed
+-Corporate Repository
+ Nexus(this is what the default repo is built on)
+ Artifactory
+
+Dependency Repository
+---------------------
+-Where we download all of our dependencies from
+ can contain just releases and/or snapshots
+ Not uncommon to have them in separate repositories
+
+-How do we specify our own repository
+ 
+ <repositories>
+    <repository>
+       <id>spring-snapshot</id>
+       <name>Spring Maven SNAPSHOT Repository</name>
+       <url>http://repo.springsource.org/libs-snapshot</url>
+      <snapshots>
+         <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+   </repository>
+ </repositories>
+
+Plugin Repository :
+-------------------
+-Identical to Dependency Repositories, just deals with Plugins
+-Will only look for Plugins, by design usually a separate repository
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>acme core</id>
+      <name>Acme Internal Corporate Repository</name>
+      <url>http://acmecorp.com/plugins</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+          <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+   </pluginRepositories>
+
+
+
+
+Releases / Snapshots
+
+-Snapshots and releases can come from the same repo
+
+-Why would projects not upload everything to the central repo
+ Snapshots
+ Milestones
+ Release Candidate
+ Release policies
+
+Summary :
+---------
+-Dependency repositories and Plugin repositories can be separte or the same repository
+-Projects will often not upload their SNAPSHOT code up to the central repo even though
+ their release project is hosted there
+-Plugins are usually in the same repo as dependencies
+-Companies should use a corporate repository internally to help lighten the load on
+ the central repo
+
+Maven plugins
+--------------
+--------------
+
+-Plugins are tied to one of the defined phases, but can usually be overridden
+-The complile plugin is already defined for you, but is often changed to use a specific version of Java.
+-The jar plugin is one of the default plugins and can be configured to produce artifacts to specific needs.
+-Source and Javadocs can easily be generated to be installed in your coporate repository for use by other developers.
+
+Demo : Compliler plugin,jar,source,javadoc
+<build>
+  <plugins>
+    <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-compiler-plugin</artifactId>
+       <version>2.3.1</version>
+       <configuration>
+           <source>1.7</source>
+           <target>1.7</source>
+       </configuration>
+     </plugin>
+
+<!--source plugin -->   
+     <groupId>org.apache.maven.plugins</groupId>
+     <artifactId>maven-source-plugin</artifactId>
+     <version>2.2.1</version>
+     <executions>
+       <execution>
+          <id>attach-sources</id>
+          <phase>verify</phase>
+             <goals>
+                  <goal>jar</goal>
+             </goals>
+        </execution>
+           
+   </plugins>
+ </build> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

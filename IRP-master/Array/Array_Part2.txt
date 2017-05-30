@@ -1,0 +1,82 @@
+
+Two dimensional array creation:
+-------------------------------
+In Java two dimensional array is not implemented by using Matrix style, sun people followed array of arrays approach for multidimensional array creation.
+
+The main advantage of the approach is memory utilization will be improved.
+e.g.
+int[][] x=new int[2][];
+x[0]=new int[2];
+
+x[1]=new int[3];
+
+
+Three dimensional array:
+------------------------
+int[][][] x=new int[2][][];
+x[0]=new int[3][];
+x[0][0]=new int[1];
+x[0][1]=new int[2];
+x[0][2]=new int[3];
+x[1]=new int[2][2];
+
+
+Which of the following declarations are valid.
+int[]a=new int[]; -invalid
+int[]a=new int[3]; -valid
+int[][]a=new int[][]; -invalid
+int[][]a=new int[3][]; -valid
+int[][]a=new int[][4]; -invalid
+int[][]a=new int[3][4]; -valid
+int[][][]a=new int[3][4][5];-valid
+int[][][]a=new int[3][][5]; -invalid
+int[][][]a=new int[][4][5]; -invalid
+
+Array initialization
+once we create an array every element by default initialized with default values.
+
+int[]x=new int[3];
+System.out.println(x); //[I@3642
+System.out.println(x[0]);//0
+
+whenever we are trying to print any reference variable internally toString() method will be called which is implemented by default to return the String in the following form:
+classname@hashcode in hexadecimal form.
+
+int[][] x=new int[2][3];
+System.out.println(x);//[[I@hashcode
+System.out.println(x[0]);//ref var to one dimensional array so o/p [I@hashcode
+System.out.println(x[0][0]);//0
+
+Example
+--------
+int[][]a=new int[2][];
+		
+		System.out.println(a);
+		System.out.println(a[0]);
+		System.out.println(a[0][0]);
+
+[[I@19e0bfd
+null
+Exception in thread "main" java.lang.NullPointerException
+	at Demo.main(Demo.java:11)
+
+
+
+int[]x=new int[6];
+x[0]=10;
+x[1]=20;
+x[2]=30;
+x[3]=40;
+x[4]=50;
+x[5]=60;
+x[6]=70;RE:RuntimeException
+x[-6]=80;RE:RuntimeException
+x[2.5]=90; compilation error:possible loss of precision found double,required int, compiler always checks for int value.
+
+if we are trying to access element with out of range value(either positive or negative value) then we will get runtime exception saying ArrayIndexOutOfBoundsException.
+
+
+
+
+
+

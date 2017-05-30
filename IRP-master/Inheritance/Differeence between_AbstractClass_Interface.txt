@@ -1,0 +1,57 @@
+Difference between abstract class and interface
+
+abstract class
+1)if we are talking about implementation but not completely(partial implementation) then we should go for abstract class.
+2)Every method present in abstract class need not be public and abstract.In addition to abstract methods we can take conrete methods also.
+3)There are no restrictions on abstract class method modifiers
+4)The variables present inside abstract class need not be public,static and final.
+5)There are no restrictions on abstract class variable modifiers.
+6)For abstract class variables it is not required to perform initialization at the time of declaration.
+7)Inside abstract class we can declare instance and static blocks.
+8)Inside abstract class we can declare constructor, which will be executed at the time of child object creation.
+
+
+interface
+1)
+If we don't know anything about implementation just we have requirement specification then we should go for interface.
+2)Inside interface every method is always public and abstract whether we are declaring or not.Hence interface is also considered as 100% pure abstract class.
+3)We can't declare interface method with the following modifiers
+public(allowed) ------private,protected(enemy list)(not allowed)
+abstract(allowed)----final,static,synchronized,native,strictfp(not allowed)
+4)Every variable present inside interface is always public,static and final whether we are declaring or not.
+5)We can't declare interface variables with the following members:
+private,protected,transient,volatile(keep on changing)
+6)For interface variables compulsory we should perform initialization at the time of declaration otherwise we will get compile time error.
+7)Inside interface we can't declare instance and static blocks. Otherwise we will get compile time error.
+8)Inside interface we can't declare constructors.
+
+
+
+abstract class Bank{    
+abstract int getRateOfInterest();    
+}    
+    
+class SBI extends Bank{    
+int getRateOfInterest(){return 7;}    
+}    
+class PNB extends Bank{    
+int getRateOfInterest(){return 8;}    
+}    
+    
+class TestBank
+{    
+  public static void main(String args[])
+  {    
+    Bank b=new SBI();//if object is PNB, method of PNB will be invoked    
+    int interest=b.getRateOfInterest();    
+    System.out.println("Rate of Interest is: "+interest+" %");    
+
+  }
+}    
+
+
+
+
+
+
+

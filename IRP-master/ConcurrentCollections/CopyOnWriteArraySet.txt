@@ -1,0 +1,100 @@
+CopyOnWriteArraySet 
+-------------------
+
+Collection(I)
+
+Set(I) extends Collection
+
+CopyOnWriteArraySet(C) implements Set
+
+-it is threadsafe version of Set
+-Internally implemented by CopyOnWriteArrayList.
+-insertion order is preserved(Internally CopyOnWriteArrayList).
+-duplicate objects are not allowed
+-only one null is allowed.
+-can add heterogeneous objects.
+-multiple threads can able to perform read operation simultaneosly but for every update operation  a separate copy will be created.
+-as for every update opertion a separate cloned copy will be created which is costly. Hence if multiple update operation are required then it is not recommended to use CopyOnWriteArraySet.
+-while one thread iterating Set the other threads are allowed to modify Set and we won't get ConcurrentModificationException.
+-Iterator of CopyOnWriteArraySet can perform only read operation and won't perform remove operation otherwise we will get RuntimeException: UnsupportedOperationException.
+
+constructors
+------------
+CopyOnWriteArraySet c=new CopyOnWriteArraySet();
+CopyOnWriteArraySet c=new CopyOnWriteArraySet(Collection c);
+
+
+methods 
+-------
+no new methods
+because set doesn't allowed duplicate objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
